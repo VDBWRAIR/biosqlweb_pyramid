@@ -47,3 +47,11 @@ This project is ported to pyramid so you can run it locally without Google Apps 
   ```
   pserve development.init -b
   ```
+  
+## Summary page
+
+![Summary Page](/summary.png)
+
+## Expanded Entry
+
+![Expanded Entry](/expandedentry.png)
