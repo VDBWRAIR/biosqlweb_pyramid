@@ -42,10 +42,16 @@ This project is ported to pyramid so you can run it locally without Google Apps 
   JF504679
   ```
 
+  Load it up
+
+  ```
+  $> ./loadseqs.py accessions.lst
+  ``` 
+
 6. Startup the server and have it open up browser
 
   ```
-  pserve development.init -b
+  pserve development.ini -b
   ```
   
 ## Summary page
