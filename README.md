@@ -7,43 +7,43 @@ This project is ported to pyramid so you can run it locally without Google Apps 
 
 1. Clone repo
 
-```
-$> git clone https://github.com/VDBWRAIR/biosql_pyramid
-$> cd biosql_pyramid
-```
+  ```
+  $> git clone https://github.com/VDBWRAIR/biosql_pyramid
+  $> cd biosql_pyramid
+  ```
 
 2. Get virtualenv setup(Optional, but recommended)
 
-```
-$> virtualenv .
-$> . bin/activate
-```
+  ```
+  $> virtualenv .
+  $> . bin/activate
+  ```
 
 3. Install project and all dependencies
 
-```
-$> python setup.py install
-```
+  ```
+  $> python setup.py install
+  ```
 
 4. Initialize database
 
-```
-$> ./initdb.py
-```
+  ```
+  $> ./initdb.py
+  ```
 
-4. Load some data from GenBank
+5. Load some data from GenBank
 
-Create file called accession.lst with gi numbers or accessions(one per line)
-There is an example included with the following content
+  Create file called accession.lst with gi numbers or accessions(one per line)
+  There is an example included with the following content
 
-```
-KF824902
-KF824903
-JF504679
-```
+  ```
+  KF824902
+  KF824903
+  JF504679
+  ```
 
-4. Startup the server and have it open up browser
+6. Startup the server and have it open up browser
 
-```
-pserve development.init -b
-```
+  ```
+  pserve development.init -b
+  ```
