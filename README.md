@@ -51,7 +51,7 @@ This project is ported to pyramid so you can run it locally without Google Apps 
 6. Startup the server and have it open up browser
 
   ```
-  pserve development.init -b
+  pserve development.ini -b
   ```
   
 ## Summary page
