@@ -72,7 +72,6 @@ sql(r"select value from seqfeature_qualifier_value where value REGEXP '.*USA.*'"
 # USA: Puerto Rico
 ```
 
-#SeqFeature.type == 'source' #location
 
 
 ###Inserting Records
