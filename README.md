@@ -16,10 +16,23 @@ $> cd biosql_pyramid
 
 ```
 $> virtualenv .
+$> . bin/activate
 ```
 
-3. Install pyramid and project
+3. Install project and all dependencies
 
 ```
 $> python setup.py install
+```
+
+4. Initialize database
+
+```
+$> ./initdb.py
+```
+
+4. Startup the server and have it open up browser
+
+```
+pserve development.init -b
 ```
