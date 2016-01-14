@@ -26,6 +26,6 @@ print "Initializing database with schema"
 print sh.sqlite3('-init', 'biosqldb-sqlite.sql', dbpath, _in='.exit')
 
 print "Creating BioSQL database"
-server = BioSeqDatabase.open_database(driver='sqlite3', db='biosql.sqlite3')
+server = BioSeqDatabase.open_database(driver='sqlite3', db=dbpath)
 db = server.new_database(dbname)
 server.adaptor.commit()

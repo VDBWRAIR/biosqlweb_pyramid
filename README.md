@@ -31,6 +31,17 @@ $> python setup.py install
 $> ./initdb.py
 ```
 
+4. Load some data from GenBank
+
+Create file called accession.lst with gi numbers or accessions(one per line)
+There is an example included with the following content
+
+```
+KF824902
+KF824903
+JF504679
+```
+
 4. Startup the server and have it open up browser
 
 ```
