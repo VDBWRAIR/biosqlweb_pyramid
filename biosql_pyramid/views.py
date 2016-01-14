@@ -5,7 +5,10 @@ from mako.template import Template
 
 from BioSQL import BioSeqDatabase
 
-def _get_db(dbpath='biosql.sqlite3', db='test_den_human'):
+dbpath = 'biosql.sqlite3'
+dbname = 'local_db'
+
+def _get_db(dbpath=dbpath, db=dbname):
     server = BioSeqDatabase.open_database(
         driver='sqlite3', db=dbpath
     )
