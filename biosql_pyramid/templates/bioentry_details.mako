@@ -1,5 +1,5 @@
 <table id="hor-minimalist-a">
-% for key, val in annotations:
+% for key, val in info:
     <tr>
       <td><b>${key}</b></td>
       % if isinstance(val, list):

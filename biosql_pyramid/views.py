@@ -63,29 +63,29 @@ def bioentry_details(request):
     bioentry_key = request.params.get('bioentry_key', '')
     biodb = _get_db()
     bioentry = biodb.get_Seq_by_primary_id(bioentry_key)
-    annotations = _build_annotations(bioentry)
-    annotations.sort()
+    info = _build_info(bioentry.annotations) + _build_info(bioentry.features[0].qualifiers)
+    info.sort()
     seqstr = str(bioentry.seq)
     seqstr = [
         seqstr[pos:pos+80] for pos in range(0, len(seqstr), 80)
     ]
-    return {'annotations': annotations, 'sequence': seqstr}
+    return {'info': info, 'sequence': seqstr}
 
-def _build_annotations(bioentry):
+def _build_info(info_dict):
     '''
     build a simple (key, value) list from dictionary but for all values that are
     iterable, " ,".join(value) them
     '''
-    ann = {}
-    for key, value in bioentry.annotations.items():
+    info = {}
+    for key, value in info_dict.items():
         if key.lower() == 'references':
             strval = [(ref.title, ref.authors) for ref in value]
         elif isinstance(value, list):
             strval = ", ".join(map(str, value))
         else:
             strval = str(value)
-        ann[key] = strval
-    return ann.items()
+        info[key] = strval
+    return info.items()
 
 bioentry_template = """
 <h3><a href="${retrieve_url}">${id} ${description}</a></h3>
