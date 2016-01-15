@@ -1,8 +1,9 @@
 import collections
 import json
+from StringIO import StringIO
 
 from pyramid.view import view_config
-from pyramid.response import Response
+from pyramid.response import Response, FileIter
 import pyramid.httpexceptions as httpexceptions
 from mako.template import Template
 
@@ -55,8 +56,30 @@ def bioentry_details(request):
     seqstr = [
         seqstr[pos:pos+80] for pos in range(0, len(seqstr), 80)
     ]
-    return {'info': info, 'sequence': seqstr}
+    return {'id': bioentry.id, 'info': info, 'sequence': seqstr}
 
+@view_config(route_name='download_file')
+def download_file(request):
+    biodb = _get_db()
+    bioentry_id = request.params.get('accession')
+    outformat = request.params.get('format', 'fasta')
+    if not bioentry_id:
+        raise httpexceptions.HTTPBadRequest('No Accession given')
+    try:
+        bioentry = biodb.get_Seq_by_ver(bioentry_id)
+    except Exception as e:
+        raise httpexceptions.HTTPNotFound('No entry found for %s' % bioentry_id)
+    try:
+        out = bioentry.format(outformat)
+    except ValueError as e:
+        raise httpexceptions.HTTPBadRequest('%s is not a supported format' % outformat)
+    output = StringIO(bioentry.format(outformat))
+    response = request.response
+    response.content_type = 'text/plain'
+    response.content_disposition = 'attachment; filename="%s.%s"' % (bioentry_id, outformat)
+    response.app_iter = FileIter(output)
+    return response
+    
 def _build_info(info_dict):
     '''
     build a simple (key, value) list from dictionary but for all values that are

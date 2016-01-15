@@ -11,5 +11,6 @@ def main(global_config, **settings):
     config.add_route('summary', '/')
     config.add_route('bioentry_details', 'bioentry_details')
     config.add_route('genbank_upload', 'genbank_upload')
+    config.add_route('download_file', 'download_file')
     config.scan()
     return config.make_wsgi_app()
