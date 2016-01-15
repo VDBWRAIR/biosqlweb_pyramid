@@ -27,11 +27,13 @@ $(document).ready(function() {
       this.disable();
     },
     onComplete: function(file, response) {
-      console.info(response);
+      if (response.indexOf('Success') == -1) {
+          alert(response);
+      }
       //button.text('Upload');
       button.removeClass("ui-state-disabled");
-      this.enable();
-    }
+      location.reload();
+    },
   });
 
   /* Hover and click logic for buttons:

@@ -1,9 +1,13 @@
 import collections
+import json
 
 from pyramid.view import view_config
+from pyramid.response import Response
+import pyramid.httpexceptions as httpexceptions
 from mako.template import Template
 
 from BioSQL import BioSeqDatabase
+from Bio import SeqIO
 
 dbpath = 'biosql.sqlite3'
 dbname = 'local_db'
@@ -86,6 +90,22 @@ def _build_info(info_dict):
             strval = str(value)
         info[key] = strval
     return info.items()
+
+@view_config(route_name='genbank_upload')
+def genbank_upload(request):
+    # XXX hack for os.linesep not being present; where did it go?
+    # os.linesep = "\n"
+    biodb = _get_db()
+    handle = request.POST['upload_file'].file
+    try:
+        biodb.load(SeqIO.parse(handle, "genbank"))
+        biodb.adaptor.commit()
+    except Exception as e: # I would catch the IntegrityError, however, would have to somehow dynamically detect db driver and import that exception
+        # columns identifier, biodatabase_id are not unique
+        raise httpexceptions.HTTPClientError("Failed Saving record to database. Likely duplicate record")
+
+    handle.close()
+    return Response('Success', content_type='text/javascript')
 
 bioentry_template = """
 <h3><a href="${retrieve_url}">${id} ${description}</a></h3>
