@@ -13,11 +13,19 @@
 <body>
   <h1>BioEntry Records</h1>
   <div id="bioentry_records">
-    % for record in records:
-      ${record | n}
+    % for dbid, record in records:
+    <h3>
+      <a href="bioentry_details?bioentry_key=${dbid}">${record.id} ${record.description}</a>
+    </h3>
+    <div>
+    </div>
     % endfor
   </div>
   <br/>
   <a href="#" id="button1" class="fg-button ui-state-default fg-button-icon-left ui-corner-all"><span class="ui-icon ui-icon-newwin"></span>GenBank Upload</a>
 </body>
 </html>
+
+<!--  <a href="#" id="button_download_${id}" class="fg-button ui-state-default fg-button-icon-left ui-corner-all">
+    <span class="ui-icon ui-icon-newwin"></span>GenBank Upload</a>
+--!>

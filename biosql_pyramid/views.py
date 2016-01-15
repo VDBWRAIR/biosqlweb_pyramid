@@ -29,26 +29,8 @@ class SummaryView(object):
         self.request = request
 
     def __call__(self):
-        return {'records': self._get_records('')}
-
-    def _get_records(self, biodb_name):
-        """Retrieve BioSQL records in the database.
-        """
-        bioentries = self._get_bioentries(biodb_name)
-        records = []
-        for bioentry in bioentries:
-            key = bioentry[0]
-            entry = bioentry[1]
-            b_tmpl = Template(bioentry_template)
-            retrieve_url = "bioentry_details?bioentry_key=%s" % key
-            records.append(
-                b_tmpl.render(
-                    id=entry.id,
-                    description=entry.description, 
-                    retrieve_url=retrieve_url
-                )
-            )
-        return records
+        #return {'records': self._get_records('')}
+        return {'records': self._get_bioentries('')}
 
     def _get_bioentries(self, biodb_name, start=0, limit=10):
         """Retreive bioentries associated with the database.
@@ -106,9 +88,3 @@ def genbank_upload(request):
 
     handle.close()
     return Response('Success', content_type='text/javascript')
-
-bioentry_template = """
-<h3><a href="${retrieve_url}">${id} ${description}</a></h3>
-<div>
-</div>
-"""
